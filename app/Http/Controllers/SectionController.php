@@ -17,6 +17,21 @@ class SectionController extends Controller
         return Section::all();
     }
 
+    public function allSectionsStudents(){
+        return Section::with('Students')->get();
+    }
+
+    public function SectionStudents($id){
+         $data = Section::find($id)->Students;
+         if (count($data)=== 0){
+             return response(['error'=>true,'error-msg'=>'not found'],404);
+            // abort(404);
+         }else{
+             return $data;
+         }
+        // return Section::find($section)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -51,8 +66,8 @@ class SectionController extends Controller
      */
     public function show(Section $section)
     {
-        $model = Section::find($section);
-        return $model;
+        $data = Section::find($section);
+        return $data;
 
     }
 

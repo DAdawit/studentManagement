@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-            return Student::all();
+            return Student::with('Section')->get();
     }
 
     /**
@@ -57,7 +57,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return Student::find($student);
+        // $comments = Post::find(1)->comments;
+
+        return Student::find($student)->Section;
     }
 
     /**

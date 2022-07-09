@@ -22,6 +22,9 @@ use App\Http\Controllers\StudentController;
 // });
 
 Route::resource('sections',SectionController::class);
+Route::get('/allsectionStudents',[SectionController::class,'allSectionStudent']);
+Route::get('/sectionStudents/{id}',[SectionController::class,'SectionStudents']);
+
 Route::resource('students',StudentController::class);
 
 Route::post('/register',[AuthController::class,'register']);

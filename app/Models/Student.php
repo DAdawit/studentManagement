@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Section;
+
 
 class Student extends Model
 {
@@ -16,4 +18,7 @@ class Student extends Model
         'section_id',
         'phoneNumber',
     ];
+    public function Section(){
+        return $this->hasOne(Section::class);
+    }
 }
