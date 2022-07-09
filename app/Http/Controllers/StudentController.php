@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+            return Student::all();
     }
 
     /**
@@ -35,7 +35,18 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'middelName'=>'required',
+            'lastName'=>'required',
+            'email'=>'required|email',
+            'section_id'=>'required',
+            'phoneNumber'=>'required',
+            'name'=>'required',
+        ]);
+
+        $student= Student::create($request->all());
+        return response(['data'=>$student,201]);
     }
 
     /**
@@ -46,7 +57,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return Student::find($student);
     }
 
     /**
@@ -69,7 +80,20 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+         $request->validate([
+            'name'=>'required',
+            'middelName'=>'requ  ired',
+            'lastName'=>'required',
+            'email'=>'required|email',
+            'section_id'=>'required',
+            'phoneNumber'=>'required',
+            'name'=>'required',
+        ]);
+
+       $data= Student::find($student);
+       $data[0]->update($request->all());
+       return $data;
+
     }
 
     /**
@@ -80,6 +104,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $data= Student::find($student);
+
+        return $data[0]->delete();
     }
 }
