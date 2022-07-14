@@ -14,12 +14,15 @@ class SectionController extends Controller
      */
     public function index()
     {
-        return Section::all();
+        $section = Section::all();
+        return response($section);
     }
+
 
     public function allSectionsStudents(){
         return Section::with('Students')->get();
     }
+
 
     public function SectionStudents($id){
          $data = Section::find($id)->Students;
@@ -29,7 +32,6 @@ class SectionController extends Controller
          }else{
              return $data;
          }
-        // return Section::find($section)->get();
     }
 
     /**
@@ -39,7 +41,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -54,8 +56,8 @@ class SectionController extends Controller
             'name'=>'required'
         ]);
 
-        $section = Section::create($request->all()); 
-                return response()->json(['sections'=>$section],201);              
+        $section = Section::create($request->all());
+        return response()->json(['sections'=>$section],201);
     }
 
     /**

@@ -20,7 +20,12 @@ class CreateStudentsTable extends Migration
             $table->string('lastName');
             $table->string('email');
             $table->string('phoneNumber');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('section_id');
+            $table->string('password')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('course_id')->references('id')->on('courses')->cascadeOnDelete();
             $table->foreign('section_id')->references('id')->on('sections')->cascadeOnDelete();
             $table->timestamps();
         });

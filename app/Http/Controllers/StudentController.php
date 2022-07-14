@@ -22,6 +22,9 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function create()
     {
         //
@@ -46,7 +49,7 @@ class StudentController extends Controller
         ]);
 
         $student= Student::create($request->all());
-        return response(['data'=>$student,201]);
+        return response()->json(['sections'=>$student],201);
     }
 
     /**
@@ -57,9 +60,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        // $comments = Post::find(1)->comments;
-
-        return Student::find($student)->Section;
+        return Student::find($student->id)->Section;
     }
 
     /**
@@ -107,7 +108,6 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $data= Student::find($student);
-
         return $data[0]->delete();
     }
 }

@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +27,12 @@ use App\Http\Controllers\StudentController;
 Route::resource('sections',SectionController::class);
 Route::get('/allsectionStudents',[SectionController::class,'allSectionStudent']);
 Route::get('/sectionStudents/{id}',[SectionController::class,'SectionStudents']);
+Route::get('/teacherStudents/{user}',[UserController::class,'teacherStudents']);
+Route::get('/teacherCourses/{user}',[UserController::class,'teacherCourses']);
 
 Route::resource('students',StudentController::class);
+Route::resource('courses',CourseController::class);
+Route::get('/courseTeachers/{course}',[CourseController::class,'courseTeachers']);
 
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);

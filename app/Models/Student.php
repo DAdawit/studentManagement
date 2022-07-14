@@ -17,8 +17,14 @@ class Student extends Model
         'email',
         'section_id',
         'phoneNumber',
+        'user_id',
+        'password',
+        'course_id'
     ];
     public function Section(){
-        return $this->hasOne(Section::class);
+        return $this->belongsTo(Section::class);
+    }
+    public function user(){
+
     }
 }

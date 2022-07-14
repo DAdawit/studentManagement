@@ -16,7 +16,7 @@ class AuthController extends Controller
         $fields =$request -> validate([
             'name'=>'required|string',
             'email'=>'required|string|unique:users,email',
-            'password'=> 'required|string|confirmed'
+            'password'=> 'required|string|confirmed',
         ]);
 
         $user = User::create([
@@ -44,7 +44,7 @@ class AuthController extends Controller
             ]);
         // $users = DB::table('users')->where('email',$fields['email'])->get();
           $user=User::where('email',$fields['email'])->first();
-            
+
             // return $user;
 
             if(!$user || !Hash::check($fields['password'],$user->password)){
