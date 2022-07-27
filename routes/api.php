@@ -7,6 +7,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StaticsController;
 
 
 /*
@@ -24,6 +25,10 @@ use App\Http\Controllers\UserController;
 //     Route::get('/',function())
 // });
 
+Route::middleware('auth:sanctum')->get('/user',function(Request $request){
+   return $request->user();
+});
+
 Route::resource('sections',SectionController::class);
 Route::get('/allsectionStudents',[SectionController::class,'allSectionStudent']);
 Route::get('/sectionStudents/{id}',[SectionController::class,'SectionStudents']);
@@ -38,3 +43,10 @@ Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/logout',[Authcontroller::class,'logout']);
 Route::post('/verifyToken',[AuthController::class,'verifyToken']);
+
+
+Route::get('/numberOfUser',[StaticsController::class,'numberOfUser']);
+Route::get('/numberOfStudents',[StaticsController::class,'numberOfStudents']);
+Route::get('/numberOfCourse',[StaticsController::class,'numberOfCourse']);
+
+

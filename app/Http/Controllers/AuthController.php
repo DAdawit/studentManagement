@@ -42,34 +42,32 @@ class AuthController extends Controller
                 'email'=>'required|string',
                 'password'=> 'required|string'
             ]);
-        // $users = DB::table('users')->where('email',$fields['email'])->get();
           $user=User::where('email',$fields['email'])->first();
-
-            // return $user;
-
             if(!$user || !Hash::check($fields['password'],$user->password)){
                 return response([
                     'message'=> 'user name and password not match!'
                 ],401);
             }
-
             $token = $user->createToken('token')->plainTextToken;
-
-
             $response = [
                 'user'=> $user,
                 'token'=> $token
             ];
-
             return response($response,201);
+//        if (!Auth::attempt($request->only('email', 'password'))) {
+//            return response()->json([
+//                'message' => 'Invalid login details'
+//            ], 401);
+//        }
+//        $request->session()->regenerate();
+//        return response()->json(null,201);
         }
 
     public function logout(){
-        auth()->user()->tokens()->delete();
+        auth('sanctum')->user()->tokens()->delete();
     }
 
     public function verifyToken(Request $request){
-            // return $hashedToken;
             $user=$request->user('sanctum');
             if($request->user('sanctum')== null){
                 return response('unauthorized',401);
