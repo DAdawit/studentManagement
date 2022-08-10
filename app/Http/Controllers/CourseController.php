@@ -45,6 +45,7 @@ class CourseController extends Controller
     {
         $request->validate([
             'name'=>'required',
+            'description'=>'required',
             'user_id'=>'nullable'
         ]);
         $course= Course::create($request->all());
@@ -95,7 +96,9 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $data= Course::find($course);
+        $data[0]->update($request->all());
+        return $data;
     }
 
     /**
@@ -106,6 +109,6 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+       return $course->delete();
     }
 }

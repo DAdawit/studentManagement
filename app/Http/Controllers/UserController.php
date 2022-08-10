@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function teacherStudents(User $user){
-        $data = User::find($user->id)->students;
+        $students = User::find($user->id)->students;
+        $courses = User::find($user->id)->courses;
+        $studentsCount=count($students);
+        $coursesCount = count($courses);
         $response = [
-            'teacher'=>$user,
-            'students'=>$data
+            'studentcount'=>$studentsCount,
+            'coursesCount'=>$coursesCount,
+            'courses'=>$courses,
+            'students'=>$students
         ];
         return response($response);
     }

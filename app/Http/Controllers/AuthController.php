@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
+    public function allUsers(){
+        $users=User::all();
+//        $users=User::paginate(3);
+        return response($users);
+    }
+    public function getUser(User $user){
+        return response($user);
+    }
     public function register(Request $request){
         $fields =$request -> validate([
             'name'=>'required|string',
