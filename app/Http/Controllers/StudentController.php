@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\CourseStudent;
+
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -14,7 +16,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-            return Student::with('Section')->get();
+            return Student::with('Section','courses')->get();
     }
 
     /**
@@ -39,17 +41,26 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'middelName'=>'required',
-            'lastName'=>'required',
-            'email'=>'required|email',
-            'section_id'=>'required',
+            'fullName'=>'required',
+            'chName'=>'required',
+            'motherName'=>'required',
             'phoneNumber'=>'required',
-            'name'=>'required',
+            'birthDate'=>'required',
+            'city'=>'required',
+            'wereda'=>'required',
+            'kebele'=>'required',
+            'houseNumber'=>'required',
+            'sex'=>'required',
+            'schoolName'=>'required',
+            'grade'=>'required',
         ]);
 
         $student= Student::create($request->all());
-        return response()->json(['sections'=>$student],201);
+        $course=$request['course_id'];
+
+        $student->courses()->attach($course);
+
+        return response()->json(['student'=>$student],201);
     }
 
     /**
@@ -60,7 +71,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return Student::find($student->id)->Section;
+        return Student::find($student->id)->Section->course;
     }
 
     /**

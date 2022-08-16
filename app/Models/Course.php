@@ -11,10 +11,12 @@ class Course extends Model
     protected $fillable = [
         'name',
         'description',
-        'user_id'
     ];
 
     public function users(){
         return $this->hasMany(Course::class);
+    }
+    public function student(){
+        return $this->belongsToMany(Student::class);
     }
 }

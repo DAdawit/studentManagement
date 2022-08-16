@@ -10,21 +10,32 @@ use App\Models\Section;
 class Student extends Model
 {
     use HasFactory;
+
+//    protected $fillable=[
+//        'course_id',
+//        'student_id'
+//    ];
         protected $fillable = [
-        'name',
-        'middelName',
-        'lastName',
-        'email',
-        'section_id',
+        'fullName',
+        'chName',
+        'motherName',
         'phoneNumber',
+        'birthDate',
+        'city',
+        'wereda',
+        'kebele',
+        'houseNumber',
+        'sex',
+        'schoolName',
+        'grade',
+        'section_id',
         'user_id',
         'password',
-        'course_id'
     ];
     public function Section(){
         return $this->belongsTo(Section::class);
     }
-    public function user(){
-
+    public function courses(){
+        return $this->belongsToMany(Course::class);
     }
 }
