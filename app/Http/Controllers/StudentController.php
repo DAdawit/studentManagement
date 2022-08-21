@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\CourseStudent;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -71,7 +72,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return Student::find($student->id)->Section->course;
+
+     return   Student::with('Section','courses')->where('id',$student->id)->first();
+
     }
 
     /**
@@ -82,7 +85,12 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        $users = DB::table('students')
+            ->join('course_student', 'students.id', '=', 'course_student.user_id')
+            ->where('course_student.student_id','=',$student->id)
+            ->select('students.*', 'course_student.course_id')
+
+            ->get();
     }
 
     /**
@@ -94,19 +102,38 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+//        'fullName',
+//        'chName',
+//        'motherName',
+//        'phoneNumber',
+//        'birthDate',
+//        'city',
+//        'wereda',
+//        'kebele',
+//        'houseNumber',
+//        'sex',
+//        'schoolName',
+//        'grade',
+//        'section_id',
+//        'user_id',
+//        'password',
          $request->validate([
-            'name'=>'required',
-            'middelName'=>'requ  ired',
-            'lastName'=>'required',
-            'email'=>'required|email',
-            'section_id'=>'required',
+            'fullName'=>'required',
+            'chName'=>'required',
+            'motherName'=>'required',
             'phoneNumber'=>'required',
-            'name'=>'required',
+            'birthDate'=>'required',
+            'sex'=>'required',
+            'section_id'=>'required',
         ]);
 
-       $data= Student::find($student);
-       $data[0]->update($request->all());
-       return $data;
+       $data= Student::find($student->id);
+       $data->update($request->all());
+       $data->courses()->sync(['course_id'=>$request->course_id]);
+        $res=   Student::with('Section','courses')->where('id',$student->id)->first();
+
+        return response()->json(['data'=>$res],201);
+//        return Student::;
 
     }
 
@@ -119,6 +146,7 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $data= Student::find($student);
+        $student->courses()->detach($student->id);
         return $data[0]->delete();
     }
 }

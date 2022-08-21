@@ -16,13 +16,11 @@ class CourseController extends Controller
     public function index()
     {
         $courses= Course::all();
-        $count =Course::count();
         $response = [
-            'count'=>$count,
             'courses'=>$courses
         ];
 
-        return response($response);
+        return $courses;
     }
 
     /**
