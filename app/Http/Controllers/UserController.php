@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Course;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,9 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function teacherStudents(User $user){
-        $students = User::find($user->id)->students;
+        $students=Student::with('Section','courses')->where('user_id',$user->id)->paginate(15);
+
+//        $students = user::find($user->id)->students;
         $courses = User::find($user->id)->courses;
         $studentsCount=count($students);
         $coursesCount = count($courses);

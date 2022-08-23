@@ -17,7 +17,11 @@ class StudentController extends Controller
      */
     public function index()
     {
-            return Student::with('Section','courses')->get();
+            return Student::with('Section','courses')->paginate(10);
+    }
+
+    public function searchStudent($search){
+            return Student::where('fullName','like','%'.$search.'%')->get();
     }
 
     /**
