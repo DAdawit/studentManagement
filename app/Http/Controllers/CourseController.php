@@ -15,10 +15,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses= Course::all();
-        $response = [
-            'courses'=>$courses
-        ];
+        $courses= Course::paginate(2);
 
         return $courses;
     }

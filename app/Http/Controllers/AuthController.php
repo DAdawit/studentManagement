@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
     public function allUsers(){
-        $users=User::where('role','user')->get();
+        $users=User::where('role','user')->paginate();
 //        $users=User::paginate(3);
         return response($users);
     }
