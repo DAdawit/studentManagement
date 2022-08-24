@@ -17,6 +17,12 @@ class AuthController extends Controller
 //        $users=User::paginate(3);
         return response($users);
     }
+
+    public function searchUser($searchName){
+        return User::where('name','like','%'.$searchName.'%')->get();
+
+    }
+
     public function getUser(User $user){
         return response($user);
     }

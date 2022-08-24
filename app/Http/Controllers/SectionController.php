@@ -14,7 +14,7 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $section = Section::paginate(2);
+        $section = Section::paginate();
         return response($section);
     }
 

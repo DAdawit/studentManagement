@@ -35,6 +35,8 @@ Route::get('/sectionStudents/{id}',[SectionController::class,'SectionStudents'])
 Route::get('/teacherStudents/{user}',[UserController::class,'teacherStudents']);
 Route::get('/teacherCourses/{user}',[UserController::class,'teacherCourses']);
 Route::get('/search/{search}',[StudentController::class,'searchStudent']);
+Route::get('/searchUser/{search}',[AuthController::class,'searchUser']);
+
 
 Route::resource('students',StudentController::class);
 Route::resource('courses',CourseController::class);
