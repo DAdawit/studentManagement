@@ -49,6 +49,7 @@ Route::post('/verifyToken',[AuthController::class,'verifyToken']);
 Route::get('/allUsers',[AuthController::class,'allUsers']);
 Route::get('/getUser/{user}',[AuthController::class,'getUser']);
 Route::post('/resetPassword',[AuthController::class,'resetPassword']);
+Route::post('/changePassword',[AuthController::class,'changePassword']);
 
 
 

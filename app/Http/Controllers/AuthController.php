@@ -68,13 +68,6 @@ class AuthController extends Controller
                 'token'=> $token
             ];
             return response($response,201);
-//        if (!Auth::attempt($request->only('email', 'password'))) {
-//            return response()->json([
-//                'message' => 'Invalid login details'
-//            ], 401);
-//        }
-//        $request->session()->regenerate();
-//        return response()->json(null,201);
         }
 
     public function logout(){
@@ -90,26 +83,27 @@ class AuthController extends Controller
     }
 
     public function resetPassword(Request $request){
-    //    $request->validate([
-    //         'old_password' => 'required',
-    //         'new_password' => 'required',
-    //     ]);
-
-
-    $user=User::find($request->id);
-    $user->password=bcrypt($request->new_password);
-    return response()->json(['success' => 'password changed !'], 201);
-    // return $user;
-            // if($user){
-                // if(Hash::check($request['old_password'],$user->password)){
-                    // $user->update();
-                    // return 'password changed';
-                // }else{
-                //     return response()->json(['error' => 'old password not match !'], 401);
-                // }
-                // } 
-                // return 'user not fuound';
-           }
-    
-
+        $user=User::find($request->id);
+        $user->password=bcrypt($request->new_password);
+        $user->update();
+        return response()->json(['success' => 'password changed !'], 201);
     }
+
+    public function changePassword(Request $request){
+        $request->validate([
+            'old_password'=>'required',
+            'new_password'=>'required'
+        ]);
+           $user=User::find($request->id);
+            if($user){
+                if(Hash::check($request['old_password'],$user->password)){
+                    $user->password=bcrypt($request->new_password);
+                    $user->update();
+                    return 'password changed';
+                }else{
+                    return response()->json(['error' => 'old password not match !'], 401);
+                }
+            }
+                return 'user not fuound';
+    }
+}
