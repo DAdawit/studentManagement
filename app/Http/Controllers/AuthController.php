@@ -89,4 +89,27 @@ class AuthController extends Controller
          return $user;
     }
 
+    public function changePassword(Request $request){
+    //    $request->validate([
+    //         'old_password' => 'required',
+    //         'new_password' => 'required',
+    //     ]);
+
+
+    $user=User::find($request->id);
+    $user->password=bcrypt($request->new_password);
+    return response()->json(['success' => 'password changed !'], 201);
+    // return $user;
+            // if($user){
+                // if(Hash::check($request['old_password'],$user->password)){
+                    // $user->update();
+                    // return 'password changed';
+                // }else{
+                //     return response()->json(['error' => 'old password not match !'], 401);
+                // }
+                // } 
+                // return 'user not fuound';
+           }
+    
+
     }
