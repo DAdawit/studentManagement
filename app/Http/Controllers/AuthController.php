@@ -89,7 +89,7 @@ class AuthController extends Controller
          return $user;
     }
 
-    public function changePassword(Request $request){
+    public function resetPassword(Request $request){
     //    $request->validate([
     //         'old_password' => 'required',
     //         'new_password' => 'required',
