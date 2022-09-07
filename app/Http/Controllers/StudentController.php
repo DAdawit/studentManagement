@@ -106,21 +106,6 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-//        'fullName',
-//        'chName',
-//        'motherName',
-//        'phoneNumber',
-//        'birthDate',
-//        'city',
-//        'wereda',
-//        'kebele',
-//        'houseNumber',
-//        'sex',
-//        'schoolName',
-//        'grade',
-//        'section_id',
-//        'user_id',
-//        'password',
          $request->validate([
             'fullName'=>'required',
             'chName'=>'required',

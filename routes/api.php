@@ -50,8 +50,8 @@ Route::get('/allUsers',[AuthController::class,'allUsers']);
 Route::get('/getUser/{user}',[AuthController::class,'getUser']);
 Route::post('/resetPassword',[AuthController::class,'resetPassword']);
 Route::post('/changePassword',[AuthController::class,'changePassword']);
-
-
+Route::delete('/user/{user}',[UserController::class,'deleteUser']);
+Route::patch('/editUser/{user}',[UserController::class,'update']);
 
 Route::get('/numberOfUser',[StaticsController::class,'numberOfUser']);
 Route::get('/numberOfStudents',[StaticsController::class,'numberOfStudents']);

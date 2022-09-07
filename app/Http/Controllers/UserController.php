@@ -34,6 +34,23 @@ class UserController extends Controller
         ];
         return response($response);
     }
+    public function update(Request $request,User $user){
+        if($user->email == $request['email']){
+            $user->update($request->all());
+            return response()->json(['data'=>'user updated'],202);
+        }else{
+            $request->validate([
+                'email'=>'required|string|unique:users,email',
+            ]);
+            $user->update($request->all());
+            return response()->json(['data'=>'user updated'],202);
+        }
 
+
+    }
+public function deleteUser(User $user){
+         $user->delete();
+        return response()->json(['data'=>'user deleted'],204);
+}
 
 }
