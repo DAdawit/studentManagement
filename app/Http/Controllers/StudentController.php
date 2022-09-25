@@ -119,10 +119,8 @@ class StudentController extends Controller
        $data= Student::find($student->id);
        $data->update($request->all());
        $data->courses()->sync(['course_id'=>$request->course_id]);
-        $res=   Student::with('Section','courses')->where('id',$student->id)->first();
-
+       $res=   Student::with('Section','courses')->where('id',$student->id)->first();
         return response()->json(['data'=>$res],201);
-//        return Student::;
 
     }
 
